@@ -22,7 +22,7 @@ db.execute(create_table) if db.table_info(TABLE_NAME).empty?
 ids = db.execute("SELECT id FROM cars").flatten
 
 cars.each_with_index do |car, idx|
-  insert_row = "INSERT INTO #{TABLE_NAME} (id, color) VALUES (?, ?), [#{idx + 1}, car.color]"
-  db.execute(insert_row) if !ids.include?(idx + 1)
+  insert_row = "INSERT INTO #{TABLE_NAME} (id, color) VALUES (?, ?)"
+  db.execute(insert_row, [idx + 1, car.color]) if !ids.include?(idx + 1)
 end
 
